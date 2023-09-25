@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Workout, WorkoutDifficulty } from './workout';
+import { Workout, WorkoutDifficulty, workoutDifficultyToTextMapping } from './workout';
 import { select, Store } from '@ngrx/store';
 import { selectAllWorkouts } from './edit-workouts.selector';
 import { WorkoutState } from './edit-workouts.reducer';
-import { addWorkout } from './edit-workouts.actions';
-
+import { addWorkout, removeWorkout } from './edit-workouts.actions';
 
 
 @Component({
@@ -17,18 +16,22 @@ export class EditWorkoutsComponent {
 
     workouts$: Observable<Workout[]>;
 
+    public difficultyMapping = workoutDifficultyToTextMapping;
+
     constructor(private store: Store<WorkoutState>) {
         this.workouts$ = this.store.pipe(select(selectAllWorkouts))
     }
 
-    addWorkout(workoutName: string): void {
+    addWorkout(workoutName: string, workoutDifficulty: number): void {
         const workout: Workout = {
             name: workoutName,
-            difficulty: WorkoutDifficulty.EASY
+            difficulty: workoutDifficulty as WorkoutDifficulty
         };
         this.store.dispatch(addWorkout(workout));
-        console.log("hi");
-        this.workouts$.forEach(w => console.log(w));
+    }
+
+    removeWorkout(workout: Workout) {
+        this.store.dispatch(removeWorkout(workout))
     }
 
 }

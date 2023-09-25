@@ -23,6 +23,14 @@ export const workoutReducer = createReducer(
             ...state,
             workouts: [...state.workouts, workout]
         })
+    ),
+    
+    on(
+        WorkoutActions.removeWorkout,
+        (state: WorkoutState, { workout }) => ({
+            ...state,
+            workouts: state.workouts.filter(w => w !== workout)
+        })
     )
 
 );

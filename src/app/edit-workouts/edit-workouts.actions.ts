@@ -6,3 +6,8 @@ export const addWorkout = createAction(
   (workout: Workout) => ({workout})
 );
 
+export const removeWorkout = createAction(
+  "[Workout] Remove Workout",
+  (workout: Workout) => ({workout})
+)
+
