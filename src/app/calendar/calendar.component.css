@@ -1,0 +1,15 @@
+
+.calendarContainer {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.calendar {
+    width: 80%;
+}
+
+.exerciseView {
+    flex-grow: 1.0;
+    background-color: red;
+}

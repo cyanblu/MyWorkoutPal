@@ -1,0 +1,12 @@
+<p>edit-workouts works!</p>
+
+<div *ngFor="let workout of workouts$ | async;">
+    {{ workout.name }} {{ difficultyMapping[workout.difficulty] }}
+    <button (click)="removeWorkout(workout)">X</button>
+</div>
+
+<div>
+    <input #workoutNameInput />
+    <app-workout-difficulty-dropdown #workoutDifficultyDropdown></app-workout-difficulty-dropdown>
+    <button (click)="addWorkout(workoutNameInput.value, workoutDifficultyDropdown.selected)">Add Workout</button>
+</div>

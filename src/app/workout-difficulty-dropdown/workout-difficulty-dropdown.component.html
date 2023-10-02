@@ -1,0 +1,6 @@
+
+<select [(ngModel)]="selected">
+    <option *ngFor="let difficulty of difficulties" [value]="difficulty">
+        {{ mapping[difficulty] }}
+    </option>
+</select>
