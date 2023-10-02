@@ -13,3 +13,13 @@
     flex-grow: 1.0;
     background-color: red;
 }
+
+#addWorkout {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+}

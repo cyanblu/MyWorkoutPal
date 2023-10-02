@@ -1,4 +1,17 @@
-<div class="calendarContainer">
-    <igx-calendar class="calendar" (selected)="selectDay($event)"></igx-calendar>
-    <div class="exerciseView"></div>
+<div class="content-container">
+    <div class="calendarContainer">
+        <igx-calendar class="calendar" (selected)="selectDay($event)"></igx-calendar>
+        <div *ngIf="currentExercise | async; else elseBlock" class="exerciseView">
+            {{ (currentExercise | async)?.workout?.name || "no exercise" }}
+        </div>
+        <ng-template #elseBlock class="exerciseView">
+            <div id="addWorkout">
+                <p>Add exercise</p>
+                <select>
+                    <option *ngFor="let workout of workouts$ | async">{{ workout.name }}</option>
+                </select>
+            </div>
+        </ng-template>
+    </div>
+    <a routerLink="/workouts" routerLinkActive="active" ariaCurrentWhenActive="page">Edit Workouts</a>
 </div>
