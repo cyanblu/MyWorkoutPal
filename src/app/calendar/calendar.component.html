@@ -1,16 +1,23 @@
 <div class="content-container">
     <div class="calendarContainer">
-        <igx-calendar class="calendar" (selected)="selectDay($event)"></igx-calendar>
-        <div *ngIf="currentExercise | async; else elseBlock" class="exerciseView">
-            {{ (currentExercise | async)?.workout?.name || "no exercise" }}
+        <igx-calendar #calendar class="calendar" (selected)="selectDay($event)"></igx-calendar>
+        <div *ngIf="currentExercise | async; else exerciseBlock" class="exerciseView">
+            {{ (currentWorkout | async)?.name }} <br />
+            {{ difficultyMapping[(currentWorkout | async)?.difficulty!] }}
+            <button (click)="removeExercise()">remove</button>
         </div>
-        <ng-template #elseBlock class="exerciseView">
-            <div id="addWorkout">
+        <ng-template #exerciseBlock class="exerciseView">
+            <div *ngIf="currentDate != null; else noDaySelectedBlock" id="addWorkout">
                 <p>Add exercise</p>
-                <select>
-                    <option *ngFor="let workout of workouts$ | async">{{ workout.name }}</option>
+                <select #workoutDropDown>
+                    <option value="noWorkout" default>no workout</option>
+                    <option [value]="workout.name" *ngFor="let workout of workouts$ | async">{{ workout.name }}</option>
                 </select>
+                <button (click)="addExercise(workoutDropDown.value)">Add</button>
             </div>
+            <ng-template #noDaySelectedBlock>
+                <p>Please select a day</p>
+            </ng-template>
         </ng-template>
     </div>
     <a routerLink="/workouts" routerLinkActive="active" ariaCurrentWhenActive="page">Edit Workouts</a>

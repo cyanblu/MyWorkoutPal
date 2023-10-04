@@ -10,3 +10,13 @@ export const removeExercise = createAction(
   "[Exercise] Remove Exercise",
   (exercise: Exercise) => ({exercise})
 )
+
+export const removeExerciseFromDay = createAction(
+  "[Exercise] Remove Exercise from Day",
+  (day: Date) => ({day})
+)
+
+export const removeExercisesWithWorkout = createAction(
+  "[Exercise] Remove Exercises with Workout",
+  (workoutName: String) => ({workoutName})
+)

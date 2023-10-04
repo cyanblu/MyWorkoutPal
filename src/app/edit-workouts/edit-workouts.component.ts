@@ -4,7 +4,9 @@ import { Workout, WorkoutDifficulty, workoutDifficultyToTextMapping } from './wo
 import { select, Store } from '@ngrx/store';
 import { selectAllWorkouts } from './edit-workouts.selector';
 import { WorkoutState } from './edit-workouts.reducer';
+import { ExerciseState } from '../calendar/exercise.reducer';
 import { addWorkout, removeWorkout } from './edit-workouts.actions';
+import { removeExercisesWithWorkout } from '../calendar/exercise.actions';
 
 
 @Component({
@@ -18,8 +20,8 @@ export class EditWorkoutsComponent {
 
     public difficultyMapping = workoutDifficultyToTextMapping;
 
-    constructor(private store: Store<WorkoutState>) {
-        this.workouts$ = this.store.pipe(select(selectAllWorkouts))
+    constructor(private workoutStore: Store<WorkoutState>, private exerciseStore: Store<ExerciseState>) {
+        this.workouts$ = this.workoutStore.pipe(select(selectAllWorkouts))
     }
 
     addWorkout(workoutName: string, workoutDifficulty: number): void {
@@ -27,11 +29,12 @@ export class EditWorkoutsComponent {
             name: workoutName,
             difficulty: workoutDifficulty as WorkoutDifficulty
         };
-        this.store.dispatch(addWorkout(workout));
+        this.workoutStore.dispatch(addWorkout(workout));
     }
 
     removeWorkout(workout: Workout) {
-        this.store.dispatch(removeWorkout(workout))
+        this.workoutStore.dispatch(removeWorkout(workout));
+        this.exerciseStore.dispatch(removeExercisesWithWorkout(workout.name));
     }
 
 }

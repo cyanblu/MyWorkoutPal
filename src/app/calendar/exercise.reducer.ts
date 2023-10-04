@@ -29,9 +29,29 @@ export const exerciseReducer = createReducer(
         ExerciseActions.removeExercise,
         (state: ExerciseState, { exercise }) => ({
             ...state,
-            workouts: state.exercises.filter(e => e !== exercise)
+            exercises: state.exercises.filter(e => e !== exercise)
         })
-    )
+    ),
+
+    on(
+        ExerciseActions.removeExerciseFromDay,
+        (state: ExerciseState, { day }) => ({
+            ...state,
+            exercises: state.exercises.filter(e => {
+                return !(e.date.getFullYear() === day.getFullYear() &&
+                e.date.getMonth() === day.getMonth() &&
+                e.date.getDate() === day.getDate());
+            })
+        })
+    ),
+    
+    on(
+        ExerciseActions.removeExercisesWithWorkout,
+        (state: ExerciseState, { workoutName }) => ({
+            ...state,
+            exercises: state.exercises.filter(e => e.workoutName !== workoutName)
+        })
+    ),
 
 );
 

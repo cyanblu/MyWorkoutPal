@@ -1,7 +1,5 @@
-import { Workout } from "../edit-workouts/workout";
-
 export interface Exercise {
-    workout: Workout,
+    workoutName: String,
     sets: number[],
     date: Date
 }
