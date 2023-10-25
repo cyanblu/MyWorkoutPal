@@ -3,7 +3,7 @@
         <igx-calendar #calendar class="calendar" (selected)="selectDay($event)"></igx-calendar>
         <div *ngIf="currentExercise | async; else exerciseBlock" class="exerciseView">
             {{ (currentWorkout | async)?.name }} <br />
-            {{ difficultyMapping[(currentWorkout | async)?.difficulty!] }}
+            difficulty: {{ difficultyMapping[(currentWorkout | async)?.difficulty!] }}
             <button (click)="removeExercise()">remove</button>
         </div>
         <ng-template #exerciseBlock class="exerciseView">

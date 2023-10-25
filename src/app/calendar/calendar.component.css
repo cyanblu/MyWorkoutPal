@@ -11,7 +11,6 @@
 
 .exerciseView {
     flex-grow: 1.0;
-    background-color: red;
 }
 
 #addWorkout {
